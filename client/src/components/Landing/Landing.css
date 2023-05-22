@@ -1,0 +1,26 @@
+
+.container{
+    
+        margin: 0; /* Elimina los márgenes predeterminados del body */
+        padding: 0; /* Elimina el padding predeterminado del body */
+        background-color: black; /* Establece el color de fondo en negro */
+        min-height: 100vh; /* Establece la altura mínima en el 100% del viewport */
+        display: flex; /* Utiliza flexbox para alinear verticalmente el contenido */
+        align-items: center; /* Centra verticalmente el contenido */
+      
+      
+}
+
+.welcome{
+    width: 35%;
+}
+
+.icon{
+    width: 10%;
+}
+
+.button{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
