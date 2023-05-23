@@ -1,13 +1,10 @@
 
 .container{
+    background-color: rgb(33, 32, 32);  
+    height: 100vh;
+    display: flex;
+    justify-content: center;
     
-        margin: 0; /* Elimina los márgenes predeterminados del body */
-        padding: 0; /* Elimina el padding predeterminado del body */
-        background-color: black; /* Establece el color de fondo en negro */
-        min-height: 100vh; /* Establece la altura mínima en el 100% del viewport */
-        display: flex; /* Utiliza flexbox para alinear verticalmente el contenido */
-        align-items: center; /* Centra verticalmente el contenido */
-      
       
 }
 
@@ -22,5 +19,5 @@
 .button{
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: rgb(33,32,32);
 }

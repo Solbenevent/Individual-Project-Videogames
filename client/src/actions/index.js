@@ -1,5 +1,5 @@
-import { GET_GAMES, GET_DETAIL, GET_GENRES, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_GENRE, ORDER_BY_CREATOR, SET_PAGE} from "./actionTypes";
-import  axios from "axios";
+import axios from "axios";
+import { GET_GAMES, GET_DETAIL, GET_GENRES, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_GENRE, ORDER_BY_CREATOR, SET_PAGE, CREATE_VIDEOGAME} from "./actionTypes";
 
 export const getVideogames = () => {
    return  async (dispatch) => {
@@ -117,15 +117,16 @@ export const filterByGenre = (genres) => (dispatch, getState) => {
   }
  }
 
-
-
-
-// if (action.payload === "abc-asc") {
-//    return {
-//        ...state,
-//        filteredVideoGames: [...state.filteredVideoGames].sort((a, b) =>
-//            a.name.localeCompare(b.name)
-//        ),
-//        orderState: action.payload,
-//    };
-// }
+ export const createVideogame = (gameData) => {
+  return async (dispatch) => {
+    await axios.post("http://localhost:3001/videogame", gameData)
+    .then(({ data }) => {
+      return dispatch({
+        type: CREATE_VIDEOGAME,
+        payload: data,
+      });
+    });   
+    
+  }
+ };
+ 

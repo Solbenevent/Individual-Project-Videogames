@@ -4,8 +4,7 @@ import { getVideogames } from "../../actions";
 import Cards from "../Cards/Cards";
 import Filter from "../FilterandOrder/Filter";
 import Pagination from "../Pagination/Pagination";
-import { all } from "axios";
-
+import SearchBar from "../SearchBar/searchBar";
 const Home = () => {
    const dispatch = useDispatch();
    const videogames = useSelector(state => state.videogames);
@@ -35,8 +34,9 @@ const Home = () => {
    const gamesToShow = allVideogames.slice(startIndex, endIndex);
 
    return (
-      <div className="container">
+      <div className="container-home">
       <div>
+         <SearchBar />
          <h1 className="title">All Videogames are here!</h1>
          <Filter  />
          <Cards videogames={gamesToShow} />

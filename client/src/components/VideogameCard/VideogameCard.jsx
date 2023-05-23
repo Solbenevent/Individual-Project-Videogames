@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const VideogameCard = ({data}) => {
   return (
     <div>
-    <button>X</button>
+    
     <Link to = {`/detail/${data.id}`}>
       
     <h3>{data.name}</h3>

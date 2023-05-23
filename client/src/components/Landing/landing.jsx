@@ -14,11 +14,13 @@ const Landing = () => {
             <div>
             <img src = {image} alt="img" className="image"/>
             </div>
+            <div>
             <Link to = {"/home"}>
             <button className="button">
                 <img src = {incon} alt= "arrow"className="icon"/>
             </button>
             </Link>
+            </div>
         </div>
     )
 };

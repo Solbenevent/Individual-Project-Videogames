@@ -1,19 +1,14 @@
-import './App.css';
+//import './App.css';
 import { Routes, Route, useLocation } from "react-router-dom";
 import Landing from './components/Landing/landing';
 import Home from "./components/Home/home";
-import SearchBar from "./components/SearchBar/searchBar";
 import Detail from './components/Detail/Detail';
 import Form from './components/Form/Form';
 
 function App() {
 
-  const { pathname } =useLocation();
-
-
   return (
     <div className="App">
-      {pathname !== "/" && <SearchBar /> }
       <Routes>
        <Route path = "/" element = {<Landing />} /> 
        <Route path = "/home" element ={ <Home />} />
