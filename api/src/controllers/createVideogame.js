@@ -12,10 +12,11 @@ const createVideogame = async (req, res) => {
       platforms, 
       image,
       released,
-      rating
+      rating,
+      genres: genres.join(",")
     });
-    const genresToAdd = await Genre.findAll({ where: { name: genres }})
-    await videogame.addGenres(genresToAdd);
+    //const genresToAdd = await Genre.findAll({ where: { name: genres }})
+   // await videogame.addGenres(genresToAdd);
     res.status(201).json(videogame); 
    
   } catch (error) {

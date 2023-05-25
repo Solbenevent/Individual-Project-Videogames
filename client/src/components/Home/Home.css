@@ -1,0 +1,20 @@
+.container-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #787676, #5c5c5c, #494949)
+  }
+
+  .title {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: yellow
+    
+  }
+  .container-name{
+   /* background-color: #1e381f; */
+    padding: 10px;
+    background: linear-gradient(to bottom, #2a4e2b, #244325, #1e381f)
+
+  }

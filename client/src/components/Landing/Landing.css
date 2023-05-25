@@ -9,15 +9,30 @@
 }
 
 .welcome{
-    width: 35%;
+    position: fixed;
+    top: calc(50% - 300px); /* Ajusta la posición vertical según el tamaño de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
 }
 
 .icon{
-    width: 10%;
+    width: 100%;
 }
 
 .button{
-    margin: 0;
-    padding: 0;
-    background-color: rgb(33,32,32);
+        position: fixed;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+        background-color: rgb(33,32,32);
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+      }
+.image{
+    position: fixed;
+    top: calc(50% - 200px); /* Ajusta la posición vertical según el tamaño de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
 }

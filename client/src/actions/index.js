@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GET_GAMES, GET_DETAIL, GET_GENRES, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_GENRE, ORDER_BY_CREATOR, SET_PAGE, CREATE_VIDEOGAME} from "./actionTypes";
+import axios, { all } from "axios";
+import { GET_GAMES, GET_DETAIL, GET_GENRES, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_GENRE, ORDER_BY_CREATOR, SET_PAGE, CREATE_VIDEOGAME, ORDER_BY_API, SEARCH_GAME_BY_NAME} from "./actionTypes";
 
 export const getVideogames = () => {
    return  async (dispatch) => {
@@ -9,6 +9,21 @@ export const getVideogames = () => {
    })
 }
 }
+
+export const searchGameByName = (name) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/videogames/name?name=${name}`);
+      return dispatch({
+        type: SEARCH_GAME_BY_NAME,
+        payload: response.data,
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 
 export const getVideogameDetail = (idVideogame) => {
    return async (dispatch) => {
@@ -77,37 +92,25 @@ export const orderAsc = (type) => (dispatch, getState) => {
      });
  }
 
-export const orderByCreator = (source) => (dispatch, getState) => {
-   const videogames = getState().videogames.filter(function (G){
-      return G.source === source
-   });
-   dispatch({
-      type: ORDER_BY_CREATOR,
-      payload: {
-         videogames, 
-         source,
-      }
-   });
+export const orderByCreator = (origin) => {
+    return  async (dispatch) => {
+      await axios.get(`http://localhost:3001/videogames?origin=${origin}`)
+       .then(response => {
+        dispatch({ type: FILTER_BY_GENRE, payload: response.data})
+       })
+    }
+ 
 }
 
 
-export const filterByGenre = (genres) => (dispatch, getState) => {
-   let filteredGames = [];
+export const filterByGenre = (genre) =>  {
+  return  async (dispatch) => {
+    await axios.get(`http://localhost:3001/videogames?genre=${genre}`)
+     .then(response => {
+      dispatch({ type: FILTER_BY_GENRE, payload: response.data})
+     })
+  }
 
-   if (genres === "All") {
-     filteredGames = getState().videogames;
-   } else {
-     filteredGames = getState().videogames.filter((game) =>
-       game.genres.includes(genres)
-     )
-   };
-   dispatch({
-     type: "FILTER_BY_GENRE",
-     payload: {
-       genres,
-       videogameGenre: filteredGames,
-     },
-   });
  };
 
  export const setPage = (page) => {

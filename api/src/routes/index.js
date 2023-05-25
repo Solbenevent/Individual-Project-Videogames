@@ -26,9 +26,9 @@ router.get("/videogames", getVideogames);
 
 router.post("/videogame", createVideogame);
 
-router.get("/videogames/:idVideogame", getVideogameById);
+router.get("/videogames/name", getGamebyName);
 
-router.get("/videogames", getGamebyName);
+router.get("/videogames/:idVideogame", getVideogameById);
 
 router.get("/genres", fetchAndSaveGenres);
 

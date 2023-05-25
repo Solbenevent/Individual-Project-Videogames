@@ -1,3 +1,47 @@
-.img {
-    width: 30%;
+.card {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+padding: 10px;
+ margin-left: 15px;
+width: 400px;
+margin-top: 10px;
+border-radius: 15px;
+transition: box-shadow 0.3s; /* Agrega una transición suave para el efecto */
+}
+
+.card:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Aumenta el desenfoque y la opacidad */
+    background-color: rgb(194, 193, 193);
+}
+
+.img-cards{ 
+    width: 70%;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+    height: 70%;
+}
+
+.card-name{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 30px;
+    color: yellow;    
+    padding: 8px;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+.card-name:hover {
+    background-color: yellow;
+    color: black;
+}
+
+.card-genre {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 5px;
+  margin-bottom: 5px;
 }

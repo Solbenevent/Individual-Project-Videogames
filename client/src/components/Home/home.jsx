@@ -5,19 +5,22 @@ import Cards from "../Cards/Cards";
 import Filter from "../FilterandOrder/Filter";
 import Pagination from "../Pagination/Pagination";
 import SearchBar from "../SearchBar/searchBar";
+import "../Home/Home.css";
+
 const Home = () => {
    const dispatch = useDispatch();
    const videogames = useSelector(state => state.videogames);
    const filteredVideogames = useSelector(state => state.filteredVideogames)
    const orderBy = useSelector(state =>state.orderBy);
- 
    const [currentPage, setCurrentPage] = useState(1);
    const itemsPerPage = 15;
 
-
+ 
    useEffect(() => {
       dispatch(getVideogames());
-   }, []);
+   }, [dispatch]);
+
+   
    
    let allVideogames;
    orderBy === "Select" ?
@@ -37,7 +40,9 @@ const Home = () => {
       <div className="container-home">
       <div>
          <SearchBar />
-         <h1 className="title">All Videogames are here!</h1>
+         <div className="container-name">
+         <h1 className="title">ALL VIDEOGAMES HERE!</h1>
+         </div>
          <Filter  />
          <Cards videogames={gamesToShow} />
          <footer>

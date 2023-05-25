@@ -5,16 +5,15 @@
 // Debe buscar tanto los de la API como los de la base de datos.
 const axios = require("axios");
 const { Videogame, Genre } = require("../db");
+require("dotenv").config();
+const API_KEY = process.env.API_KEY;
 const { Op } = require("sequelize");
-
-
 
 const getGamebyName = async (req, res) => {
     try {
       const { name } = req.query;
-      const response = await axios.get("https://api.rawg.io/api/games", {
-        params: {
-          key: "7a58c32e70024449b42b6c5e017d019d",
+      const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`, {
+        params: { 
           search: name,
           page_size: 15,
         },
@@ -36,7 +35,7 @@ const getGamebyName = async (req, res) => {
       const videogamesDB = await Videogame.findAll({
         where: {
           name: {
-            [Op.iLike]: `${name}%`, // <- aquí usas `%` al final del valor de búsqueda
+            [Op.iLike]: `%${name}%`, // <- aquí usas `%` al final del valor de búsqueda
           },
         },
         attributes: [

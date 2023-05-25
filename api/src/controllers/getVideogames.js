@@ -1,15 +1,18 @@
 //const { Videogame } = require("../db"); 
  const axios = require('axios');
+ const { Videogame } = require("../db");
 // const URL = "https://api.rawg.io/api/games";
 
 require("dotenv").config();
 API_KEY = process.env.API_KEY;
 const getVideogames = async (req, res) => {
-   
-    
+
+    const genero = req.query.genre ? req.query.genre : false;
+    const origin = req.query.origin ? req.query.origin : "api"
+
     try {
         let apiGames = [];
-
+    if(origin === "api") {
         const url1 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=1`);
         const url2 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=2`);
         const url3 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=3`);
@@ -29,6 +32,21 @@ const getVideogames = async (req, res) => {
                 released: game.released
             }
         });
+    } else {
+        apiGames = await Videogame.findAll();
+        apiGames = apiGames.map((game) => {
+            const gameGenre = game.genres.split(",") 
+            game.genres = gameGenre.map((gen) => {
+                return {
+                    name: gen,
+                }
+            })
+            return game;
+        })
+    }
+        if (genero) { 
+            apiGames = apiGames.filter(game => game.genres.find(game =>  game.name === genero ));
+        }
         res.status(200).json(apiGames);
     } catch (error) {
         res.status(500).json({ error: error.message });

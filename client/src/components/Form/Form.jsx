@@ -1,16 +1,11 @@
-// Nombre.
-// Imagen.
-// Descripción.
-// Plataformas. //
-// Fecha de lanzamiento.
-// Rating.
-// Posibilidad de seleccionar/agregar varios géneros en simultáneo.
-// Botón para crear el nuevo videojuego.
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenres, createVideogame } from "../../actions";
+import { Link } from "react-router-dom";
 import validations from "./validations"
- 
+import "../Form/Form.css"; 
+
 const Form = () => {
   const genres = useSelector(state => state.genres);
   const dispatch = useDispatch();
@@ -29,9 +24,10 @@ const Form = () => {
     released: ""
   })
 
+
   const [errors, setErrors] = useState({
     name: "",
-    rating: 0,
+    rating: "",
     description: "",
   });
 
@@ -52,7 +48,6 @@ const Form = () => {
     return alert("Sorry, something went wrong");
   };
   
-
   const randomPlatforms = [
     "PC",
     "Playstation 5",
@@ -63,41 +58,49 @@ const Form = () => {
     "Android"
   ]
 
-  
-  const handleGenreChange = (event) => {
-    const genre = event.target.value;
-    const isChecked = event.target.checked;
+
+  const handleMultiSelectChange = (e) => {
+    
+    const { value, checked } = e.target;
 
     setGame((prevGame) => {
-      if (isChecked) {
-        return { ...prevGame, genres: [...prevGame.genres, genre] };
+      if (checked) {
+        return {
+          ...prevGame,
+          genres: [...prevGame.genres, value],
+        };
       } else {
         return {
           ...prevGame,
-          genres: prevGame.genres.filter((selectedGenre) => selectedGenre !== genre)
+          genres: prevGame.genres.filter((genre) => genre !== value),
         };
       }
     });
-  };
+};
+
 
   return (
     <div>
-        <div>
-            <h1>Hey! Create a new Videogame</h1>
+      <Link to = "/home">
+      <button className="btn-back">Back</button>
+      </Link>
+    <form className="form-container">
+        <div className="title-container">
+            <h1 className="form-title">Hey! Create a new Videogame</h1>
         </div>
 
-        <div>
-        <label>Name:</label>
+        <div className="name-container">
+        <label className="form-name">Name:</label>
         <input
         type="text"
         name="name"
         value={game.name}
         onChange={handleInputChange} />
-        <p>{errors.name}</p>
+        <p className="error-name">{errors.name}</p>
         </div>
 
-        <div>
-            <label>Image URL:</label>
+        <div className="container-img-url">
+            <label className="img-url">Image URL:</label>
             <input
             type="text"
             name="image"
@@ -105,7 +108,7 @@ const Form = () => {
             onChange={handleInputChange} />
         </div>
 
-        <div>
+        <div className="container-form-platforms">
             <label>Platforms:</label>
             <select name="platforms" value={game.platforms} onChange={handleInputChange}>
                 {randomPlatforms.map((p) => (
@@ -114,51 +117,54 @@ const Form = () => {
             </select>
         </div>
 
-        <div>Released:</div>
+        <div className="container-form-released">
+          <label className="form-released">Released:</label>
         <input
         type="date"
         name="released"
         value={game.released}
         onChange={handleInputChange} />
-
-        <div>
-            <label>Description:</label>
+        </div>
+        <div className="container-form-description">
+            <label className="form-description">Description:</label>
             <textarea
+            className="textarea-description"
             name="description"
             value={game.description}
             onChange={handleInputChange} />
-            <p>{errors.description}</p>
+            <p className="error-description">{errors.description}</p>
         </div>
 
-        <div>
-            <label>Rating:</label>
+        <div className="container-form-rating">
+            <label className="form-rating">Rating:</label>
             <input
             type="number"
             name="rating"
             value={game.rating}
             onChange={handleInputChange} />
-            <p>{errors.rating}</p>
+            <p className="error-rating">{errors.rating}</p>
         </div>
 
-        <div>
-            <label>Genres:</label>
+        <div className="container-form-genre">
+            <label className="form-genre" >Genres:</label>
             {genres.map((genre) => (
   <label key={genre.id}>
     <input
       type="checkbox"
-      value={genre.name}
+      value={genre}
       name="genres"
-      checked={game.genres[genre]}
-      onChange={handleGenreChange}
+      checked={game.genres.includes(genre)}
+      onChange={handleMultiSelectChange}
     />
     {genre}
   </label>
 ))}
         </div>
-        <div>
-            <button onClick={handleSubmit}>Create</button>
+        <div className="container-form-btn">
+            <button onClick={handleSubmit} className="btn-form">Create</button>
         </div>
-    </div>
+    </form>
+  </div>  
   )
 }
 export default Form;

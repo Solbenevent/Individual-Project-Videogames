@@ -9,3 +9,5 @@ export const ORDER_DESC_RATING = "ORDER_DESC_RATING";
 export const FILTER_BY_GENRE = "FILTER_BY_GENRE";
 export const ORDER_BY_CREATOR = "ORDER_BY_CREATOR";
 export const SET_PAGE = "SET_PAGE";
+export const ORDER_BY_API = "ORDER_BY_API";
+export const SEARCH_GAME_BY_NAME = "SEARCH_GAME_BY_NAME";

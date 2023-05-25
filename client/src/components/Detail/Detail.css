@@ -1,3 +1,92 @@
-.img {
-    width: 35%;
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Chakra+Petch:wght@300&family=Oswald:wght@600&display=swap');
+
+.container-detail {
+  background: linear-gradient(to top, #787676, #5c5c5c, #494949);
+  min-height: 100vh;
+  justify-content: center;
 }
+
+.container-detail-name {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.detail-name{
+  font-family: "Assistant", sans-serif;
+  color: yellow;
+  font-weight: bold;
+
+}
+
+.container-description-detail {
+  border: 1.5px solid yellow;
+}
+
+.detail-description {
+  font-family: "Assistant", sans-serif;
+  
+}
+
+.container-genre-detail {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.detail-genre {
+  font-family: "Assistant", sans-serif;
+}
+
+.detail-rating {
+  font-family: "Assistant", sans-serif;
+}
+
+.container-img-detail {
+  width: 60%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.container-rating-detail {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.img-detail {
+  max-width: 50%;
+  height: auto;
+  border: 2px solid black;
+  border-radius: 50%;
+  margin-left: 64%;
+  margin-top: 5px;
+  padding: 0px
+}
+
+.container-released{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 5px;
+}
+
+.container-platform-detail {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.container-detail-name,
+.container-released,
+.container-genre-detail,
+.container-rating-detail,
+.container-platform-detail,
+.container-description-detail {
+  
+ 
+margin-top: 5px; /* Ajusta el margen superior */
+margin-bottom: 5px; /* Ajusta el margen inferior */
+}
+
+

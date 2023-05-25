@@ -14,7 +14,6 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
     },
     description: {
       type: DataTypes.STRING,
@@ -34,6 +33,10 @@ module.exports = (sequelize) => {
     },
     rating: {
       type: DataTypes.DECIMAL(2,1),
+    },
+    genres: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   })
 

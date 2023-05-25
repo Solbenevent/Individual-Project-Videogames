@@ -1,0 +1,20 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    size: 80px;
+    margin-bottom: 8px;
+}
+
+.btn-pages{
+    margin-right: 10px;
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.btn-pages:hover {
+  cursor: pointer;
+  box-shadow: 4px 4px 10px 4px rgba(255, 255, 52, 0.907);
+
+
+}

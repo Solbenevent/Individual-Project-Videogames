@@ -23,20 +23,21 @@ const validations = (game, errors, setErrors) => {
       setErrors({
         ...errors,
         name: "Cannot contain more than 40 characters",
-        description: "",
       });
     } else if (game.rating < 0) {
-      setErrors({ ...errors, rating: "Rating cannot be less than 0", description: "" });
+      setErrors({ ...errors, rating: "Rating cannot be less than 0"});
     } else if (game.rating > 5) {
-      setErrors({ ...errors, rating: "Rating cannot be greater than 0", description: "" });
+      setErrors({ ...errors, rating: "Rating cannot be greater than 0" });
     } else if (!game.description) {
-      setErrors({ ...errors, description: "Complete this field", name: "" });
+      setErrors({ ...errors, description: "Complete this field"});
     } else if (game.description.length > 150) {
       setErrors({
         ...errors,
         description: "Cannot contain more than 150 characters",
-        name: "",
       });
+    }
+    else {
+      setErrors("")
     }
   };
 

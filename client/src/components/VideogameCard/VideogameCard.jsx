@@ -4,19 +4,17 @@ import { Link } from "react-router-dom";
 
 const VideogameCard = ({data}) => {
   return (
-    <div>
-    
-    <Link to = {`/detail/${data.id}`}>
-      
-    <h3>{data.name}</h3>
+    <div className="card">  
+    <Link to = {`/detail/${data.id}`}> 
+    <h3 className="card-name">{data.name}</h3>
     </Link>
-    <p>
+    <p className="card-genre">
         {data.genres.map((genre) => (
-            <span key ={genre.id}>{genre.name}</span>
+            <p key ={genre.id}>{genre.name}</p>
         ))}
         </p>
     <img src={data.image} alt={data.name}
-    className="img"/>
+    className="img-cards"/>
     </div>
   )
 };
