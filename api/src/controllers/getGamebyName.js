@@ -60,6 +60,7 @@ const getGamebyName = async (req, res) => {
       } else {
         res.status(200).json(videogames);
       }
+      console.log(videogames); 
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

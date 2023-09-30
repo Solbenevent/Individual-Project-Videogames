@@ -1,18 +1,18 @@
-
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGenres, createVideogame } from "../../actions";
+import { getGenres } from "../../actions";
 import { Link } from "react-router-dom";
-import validations from "./validations"
-import "../Form/Form.css"; 
+import validations from "./validations";
+import "../Form/Form.css";
 
 const Form = () => {
-  const genres = useSelector(state => state.genres);
+  const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
-  
-   useEffect(() => {
-     dispatch(getGenres());
-   }, [])
+
+  useEffect(() => {
+    dispatch(getGenres());
+  }, []);
 
   const [game, setGame] = useState({
     name: "",
@@ -21,46 +21,48 @@ const Form = () => {
     platforms: [],
     genres: [],
     rating: 0,
-    released: ""
-  })
-
+    released: "",
+  });
 
   const [errors, setErrors] = useState({
     name: "",
-    rating: "",
+    rating: 0,
     description: "",
   });
 
+  // const handleInputChange = (e) => {
+  //   const property = e.target.name;
+  //   const value = e.target.value;
+  //   const updatedGame = { ...game, [property]: value };
+  //   setGame(updatedGame);
+  //   validations(updatedGame, errors, setErrors);
+  // };
+  // const handleInputChange = (e) => {
+  //   const property = e.target.name;
+  //   const value =
+  //     e.target.name === "rating" ? parseFloat(e.target.value) : e.target.value;
+
+  //   const updatedGame = { ...game, [property]: value };
+  //   setGame(updatedGame);
+  //   validations(updatedGame, errors, setErrors);
+  // };
   const handleInputChange = (e) => {
     const property = e.target.name;
-    const value = e.target.value;
-    const updatedGame = {...game, [property]: value};
+    let value = e.target.value;
+
+    if (property === "rating") {
+      value = parseFloat(value);
+    } else if (property === "platforms") {
+      // Si la propiedad es 'platforms', convierte el valor en un array con un solo elemento
+      value = [value];
+    }
+
+    const updatedGame = { ...game, [property]: value };
     setGame(updatedGame);
     validations(updatedGame, errors, setErrors);
-
-  }
-
-  const handleSubmit = () => {
-    if (Object.values(errors).every((error) => error === "")) {
-      dispatch(createVideogame(game));
-      return alert("Videogame created successfully!");
-    }
-    return alert("Sorry, something went wrong");
   };
-  
-  const randomPlatforms = [
-    "PC",
-    "Playstation 5",
-    "Playstation 4",
-    "Xbox One",
-    "Nintendo Switch",
-    "iOS",
-    "Android"
-  ]
-
 
   const handleMultiSelectChange = (e) => {
-    
     const { value, checked } = e.target;
 
     setGame((prevGame) => {
@@ -76,95 +78,141 @@ const Form = () => {
         };
       }
     });
-};
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (Object.values(errors).every((error) => error === "")) {
+        const gameData = {
+          name: game.name,
+          image: game.image,
+          description: game.description,
+          platforms: game.platforms,
+          genres: game.genres,
+          rating: game.rating,
+          released: game.released,
+        };
+        console.log(gameData);
+        console.log(2);
+        console.log(gameData.length);
+        return await axios.post("http://localhost:3001/videogame", gameData);
+      }
+    } catch (error) {
+      console.error("Error creating videogame:", error);
+      alert(
+        "An error occurred while creating the videogame. Please try again later."
+      );
+    }
+  };
+
+  const randomPlatforms = [
+    "PC",
+    "Playstation 5",
+    "Playstation 4",
+    "Xbox One",
+    "Nintendo Switch",
+    "iOS",
+    "Android",
+  ];
 
   return (
     <div>
-      <Link to = "/home">
-      <button className="btn-back">Back</button>
+      <Link to="/home">
+        <button className="btn-back">Back</button>
       </Link>
-    <form className="form-container">
+      <form className="form-container" onSubmit={handleSubmit}>
         <div className="title-container">
-            <h1 className="form-title">Hey! Create a new Videogame</h1>
+          <h1 className="form-title">Hey! Create a new Videogame</h1>
         </div>
 
         <div className="name-container">
-        <label className="form-name">Name:</label>
-        <input
-        type="text"
-        name="name"
-        value={game.name}
-        onChange={handleInputChange} />
-        <p className="error-name">{errors.name}</p>
+          <label className="form-name">Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={game.name}
+            onChange={handleInputChange}
+          />
+          <p className="error-name">{errors.name}</p>
         </div>
 
         <div className="container-img-url">
-            <label className="img-url">Image URL:</label>
-            <input
+          <label className="img-url">Image URL:</label>
+          <input
             type="text"
             name="image"
             value={game.image}
-            onChange={handleInputChange} />
+            onChange={handleInputChange}
+          />
         </div>
 
         <div className="container-form-platforms">
-            <label>Platforms:</label>
-            <select name="platforms" value={game.platforms} onChange={handleInputChange}>
-                {randomPlatforms.map((p) => (
-                    <option>{p}</option>
-                ))}
-            </select>
+          <label>Platforms:</label>
+          <select
+            name="platforms"
+            value={game.platforms}
+            onChange={handleInputChange}
+          >
+            {randomPlatforms.map((p) => (
+              <option>{p}</option>
+            ))}
+          </select>
         </div>
 
         <div className="container-form-released">
           <label className="form-released">Released:</label>
-        <input
-        type="date"
-        name="released"
-        value={game.released}
-        onChange={handleInputChange} />
+          <input
+            type="date"
+            name="released"
+            value={game.released}
+            onChange={handleInputChange}
+          />
         </div>
         <div className="container-form-description">
-            <label className="form-description">Description:</label>
-            <textarea
+          <label className="form-description">Description:</label>
+          <textarea
             className="textarea-description"
             name="description"
             value={game.description}
-            onChange={handleInputChange} />
-            <p className="error-description">{errors.description}</p>
+            onChange={handleInputChange}
+          />
+          <p className="error-description">{errors.description}</p>
         </div>
 
         <div className="container-form-rating">
-            <label className="form-rating">Rating:</label>
-            <input
+          <label className="form-rating">Rating:</label>
+          <input
             type="number"
             name="rating"
             value={game.rating}
-            onChange={handleInputChange} />
-            <p className="error-rating">{errors.rating}</p>
+            onChange={handleInputChange}
+          />
+          <p className="error-rating">{errors.rating}</p>
         </div>
 
         <div className="container-form-genre">
-            <label className="form-genre" >Genres:</label>
-            {genres.map((genre) => (
-  <label key={genre.id}>
-    <input
-      type="checkbox"
-      value={genre}
-      name="genres"
-      checked={game.genres.includes(genre)}
-      onChange={handleMultiSelectChange}
-    />
-    {genre}
-  </label>
-))}
+          <label className="form-genre">Genres:</label>
+          {genres.map((genre) => (
+            <label key={genre.id}>
+              <input
+                type="checkbox"
+                value={genre}
+                name="genres"
+                checked={game.genres.includes(genre)}
+                onChange={handleMultiSelectChange}
+              />
+              {genre}
+            </label>
+          ))}
         </div>
         <div className="container-form-btn">
-            <button onClick={handleSubmit} className="btn-form">Create</button>
+          <button onSubmit={handleSubmit} className="btn-form">
+            Create
+          </button>
         </div>
-    </form>
-  </div>  
-  )
-}
+      </form>
+    </div>
+  );
+};
 export default Form;

@@ -1,20 +1,32 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { orderDesc, orderAsc, filterByGenre, getGenres, orderByCreator, getVideogames } from "../../actions";
+import { orderDesc, orderAsc, getGenres, filterByGenreAndOrigin, filterByGenre, orderByCreator } from "../../actions";
 import "../FilterandOrder/Filter.css";
 
 const Filter = () => {
     const dispatch = useDispatch();
-    const filterBy = useSelector(state=> state.filterBy);
+    const orderBy = useSelector(state=> state.filterBy);
     const genres = useSelector(state => state.genres);
+    const filterBy = useSelector(state => state.filterBy);
 
     const [selectedGenre, setSelectedGenre] = useState("All");
-
     const [origin, setOrigin] = useState("All");
-
+ 
      useEffect(() => {
        dispatch(getGenres())
-     }, []);
+     }, [dispatch]);
+
+     const handleFilterByGenre = (genre) => {
+       setSelectedGenre(genre);
+       dispatch(filterByGenre(genre));
+     }
+
+    const handleOrderByCreator = (origin) => {
+      setOrigin(origin);
+      dispatch(orderByCreator(origin));
+    }
+
+
 
     const handleOrder = (e) => {
         if(e.target.value === "desc_name" ||
@@ -26,27 +38,17 @@ const Filter = () => {
           e.target.value === "asc_rating") {
             dispatch(orderAsc(e.target.value));
           } 
+       
     }
-
-    const handleFilter = (e) => {      
-      // dispatch(getGenres(e.target.value));
-      const genre = e.target.value;
-  
-     setSelectedGenre(genre);
-     dispatch(filterByGenre(genre));
-    };
-
-     const handleCreator = (e) => {
-       const selectedOrigin = e.target.value;
-       setOrigin(e.target.value);
-       dispatch(orderByCreator(selectedOrigin));
-     }
+   
+      
+    
 
     return (
         <div className="filter-container">
          <div className="filter-genre">
          	<label>Filter by Genre</label>
-				 <select onChange={(e) => handleFilter(e)} value={selectedGenre}>
+				 <select onChange={(e) => handleFilterByGenre(e.target.value)} value ={selectedGenre}>
 					<option defaultValue>All</option>
 					{genres.map((genre) => (
 						<option value={genre} key={genre.id}>{genre}</option>
@@ -56,15 +58,15 @@ const Filter = () => {
         </div>
         <div className="filter-origin">
           <label>Filter by Origin:</label>
-          <select onChange={(e)=>handleCreator(e)} value ={origin}>
+          <select onChange={(e) => handleOrderByCreator(e.target.value)} value={origin}>
             <option default>All</option>
-            <option value="api">API</option>
+            <option value="API">API</option>
             <option value="Created">Created</option>
           </select>
         </div>
         <div className="sort-order">
           <label>Sort Order:</label>
-          <select onChange={(e) => handleOrder(e)}>
+          <select onChange={handleOrder}>
             <option value="All" default>All</option>
             <option value ="desc_name">Descending</option>
             <option value="asc_name">Ascending</option>

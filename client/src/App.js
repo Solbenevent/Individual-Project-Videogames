@@ -1,11 +1,20 @@
 import './App.css';
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getVideogames } from './actions';
 import Landing from './components/Landing/landing';
 import Home from "./components/Home/home";
 import Detail from './components/Detail/Detail';
 import Form from './components/Form/Form';
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getVideogames()); 
+  }, [dispatch])
 
   return (
     <div className="App">

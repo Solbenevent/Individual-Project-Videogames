@@ -2,18 +2,16 @@
 import "../VideogameCard/VideogameCards.css";
 import { Link } from "react-router-dom";
 
-const VideogameCard = ({data}) => {
+const VideogameCard = ({id, name, genres, image }) => {
   return (
     <div className="card">  
-    <Link to = {`/detail/${data.id}`}> 
-    <h3 className="card-name">{data.name}</h3>
+    <Link to = {`/detail/${id}`}> 
+    <h3 className="card-name">{name}</h3>
     </Link>
     <p className="card-genre">
-        {data.genres.map((genre) => (
-            <p key ={genre.id}>{genre.name}</p>
-        ))}
+       {genres}
         </p>
-    <img src={data.image} alt={data.name}
+    <img src={image} alt={name}
     className="img-cards"/>
     </div>
   )

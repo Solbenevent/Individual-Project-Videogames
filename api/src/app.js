@@ -39,7 +39,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 //   console.log("Listening on port 3001");
 //   await conn.sync({ force: true });
 // });
-conn.sync( { force: false }).then(async () => {
+conn.sync( { force: true }).then(async () => {
   server.listen(3001, () => {
     console.log("Listening on port 3001")
   })

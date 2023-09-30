@@ -9,11 +9,17 @@ const  API_KEY  = process.env.API_KEY;
 
 const getDataApi = async () => {
   try {
-    const response = await axios.get
-    (`https://api.rawg.io/api/genres?page=1&key=${API_KEY}`)
-    return response.data.results.map((genre) => genre.name);
+    const response = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
+    
+    if (response.data && response.data.results) {
+      const allGenres = response.data.results.map(genre => genre.name);
+      console.log(allGenres);
+      return allGenres;
+    } else {
+      throw new Error("Data format from API is incorrect");
+    }
   } catch (error) {
-    throw Error("Error al obtener los nombres de la API");
+    throw new Error("Couldn't get all genres from API");
   }
 }
 

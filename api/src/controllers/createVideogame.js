@@ -1,30 +1,48 @@
 const { Videogame, Genre } = require("../db");
-//const { Router } = require("express");
-//const router = Router();
 
 const createVideogame = async (req, res) => {
-  try {
-    const { name, description, platforms, image, released, rating, genres } = req.body;
+  const {
+    name,
+    description,
+    platforms,
+    image,
+    released,
+    rating,
+    genres,
+  } = req.body; 
 
-    const videogame = await Videogame.create({
-      name, 
+  try {
+    if(!name || !description || !platforms || !image || !released || !rating || !genres) 
+    return res.status(400).json({ message: "You must complete all fields"});
+
+    const videogameCreated = await Videogame.create({
+      name,
       description,
-      platforms, 
+      platforms,
       image,
       released,
       rating,
-      genres: genres.join(",")
+      created: true
     });
-    //const genresToAdd = await Genre.findAll({ where: { name: genres }})
-   // await videogame.addGenres(genresToAdd);
-    res.status(201).json(videogame); 
-   
+    console.log(videogameCreated);
+
+    const genreDB = await Genre.findAll({
+      where: {
+        name: genres,
+      },
+    });
+    videogameCreated.addGenre(genreDB); 
+
+    return res.status(201).json({ message: "¡The videogame was successfully created!"})
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    console.log(error); 
+    return res.status(500).json({ message: "Sorry, something went wrong", error}); 
   }
+
+
 }
 
 
 module.exports =
     createVideogame
-
+    

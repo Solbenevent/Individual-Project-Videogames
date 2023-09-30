@@ -27,7 +27,7 @@ const validations = (game, errors, setErrors) => {
     } else if (game.rating < 0) {
       setErrors({ ...errors, rating: "Rating cannot be less than 0"});
     } else if (game.rating > 5) {
-      setErrors({ ...errors, rating: "Rating cannot be greater than 0" });
+      setErrors({ ...errors, rating: "Rating cannot be greater than 5" });
     } else if (!game.description) {
       setErrors({ ...errors, description: "Complete this field"});
     } else if (game.description.length > 150) {

@@ -15,33 +15,68 @@ const { Videogame, Genre } = require("../db");
 const getVideogameById = async (req, res) => {
     const { idVideogame } = req.params;
     try {
-    let videogame;
-    if(idVideogame) {
-      const url = `https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`;
-      const response = await axios.get(url);
-      videogame = response.data;
-    } else {
+      let videogame;
+  
+      if (idVideogame.length === 36) {
+        // Si la longitud es 36, asumimos que es un UUID y lo buscamos en la base de datos local
         videogame = await Videogame.findByPk(idVideogame, {
-            include: Genre
+          include: Genre,
         });
-    }
-    if(videogame) {
-        const genres = videogame.genres ? videogame.genres.map(genre => genre.name) : [];
+      } else {
+        // De lo contrario, asumimos que es un juego de la API externa y lo buscamos en la API
+        const url = `https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`;
+        const response = await axios.get(url);
+        videogame = response.data;
+      }
+  
+      if (videogame) {
+        const genres = videogame.genres ? videogame.genres.map((genre) => genre.name) : [];
         res.status(200).json({
-            name: videogame.name,
-            image:videogame.background_image,
-            description: videogame.description_raw || videogame.description || "",
-            released: videogame.released || "",
-            rating: videogame.rating || 0,
-            platforms: videogame.platforms ? videogame.platforms.map(platform => platform.platform.name) : [],
-            genres
+          name: videogame.name,
+          image: videogame.background_image,
+          description: videogame.description_raw || videogame.description || "",
+          released: videogame.released || "",
+          rating: videogame.rating || 0,
+          platforms: videogame.platforms ? videogame.platforms.map((platform) => platform.platform.name) : [],
+          genres,
         });
-    } else {
+      } else {
         res.status(404).send(`Videogame ${idVideogame} Not Found`);
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error al obtener detalle del Videojuego", error });
     }
-  } catch (error) {
-    res.status(500).send("Error al obtener detalle del Videojuego");
-  }
+  //   try {
+  //   let videogame;
+    
+  //   if(idVideogame) {
+  //     const url = `https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`;
+  //     const response = await axios.get(url);
+  //     videogame = response.data;
+  //   } else {
+  //       videogame = await Videogame.findByPk(idVideogame, {
+  //           include: Genre
+  //       });
+  //   }
+  //   if(videogame) {
+  //       const genres = videogame.genres ? videogame.genres.map(genre => genre.name) : [];
+  //       res.status(200).json({
+  //           name: videogame.name,
+  //           image:videogame.background_image,
+  //           description: videogame.description_raw || videogame.description || "",
+  //           released: videogame.released || "",
+  //           rating: videogame.rating || 0,
+  //           platforms: videogame.platforms ? videogame.platforms.map(platform => platform.platform.name) : [],
+  //           genres
+  //       });
+  //   } else {
+  //       res.status(404).send(`Videogame ${idVideogame} Not Found`);
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).json({ message: "Error al obtener detalle del Videojuego", error});
+  // }
 }
 
   
