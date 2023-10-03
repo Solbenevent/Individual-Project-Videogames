@@ -7,9 +7,11 @@ import validations from "./validations";
 import "../Form/Form.css";
 
 const Form = () => {
+  //react-redux
   const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
 
+  //hooks
   useEffect(() => {
     dispatch(getGenres());
   }, []);
@@ -30,22 +32,16 @@ const Form = () => {
     description: "",
   });
 
-  // const handleInputChange = (e) => {
-  //   const property = e.target.name;
-  //   const value = e.target.value;
-  //   const updatedGame = { ...game, [property]: value };
-  //   setGame(updatedGame);
-  //   validations(updatedGame, errors, setErrors);
-  // };
-  // const handleInputChange = (e) => {
-  //   const property = e.target.name;
-  //   const value =
-  //     e.target.name === "rating" ? parseFloat(e.target.value) : e.target.value;
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState("");
 
-  //   const updatedGame = { ...game, [property]: value };
-  //   setGame(updatedGame);
-  //   validations(updatedGame, errors, setErrors);
-  // };
+  //handlers
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   const handleInputChange = (e) => {
     const property = e.target.name;
     let value = e.target.value;
@@ -80,6 +76,49 @@ const Form = () => {
     });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     if (Object.values(errors).every((error) => error === "")) {
+  //       const gameData = {
+  //         name: game.name,
+  //         image: game.image,
+  //         description: game.description,
+  //         platforms: game.platforms,
+  //         genres: game.genres,
+  //         rating: game.rating,
+  //         released: game.released,
+  //       };
+  //       console.log(gameData);
+  //       console.log(222);
+  //       // return await axios.post("http://localhost:3001/videogame", gameData);
+  //       const response = await axios.post(
+  //         "http://localhost:3001/videogame",
+  //         gameData
+  //       );
+  //       console.log(response);
+  //       if (response.status === 201) {
+  //         setModalMessage(response.data.message);
+  //         setModalType("success");
+  //         setShowModal(true);
+  //       }
+  //       // Si hubo un error en la solicitud, muestra el modal de error
+  //       setShowModal(true);
+  //       setModalType("error");
+  //       setModalMessage(
+  //         "An error occurred while creating the videogame. Please try again later."
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creating videogame:", error);
+  //     setModalMessage(
+  //       error.response?.data?.message || "¡Lo siento! Ocurrió un Error"
+  //     );
+  //     setModalType("error");
+  //     setShowModal(true);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -96,11 +135,39 @@ const Form = () => {
         console.log(gameData);
         console.log(2);
         console.log(gameData.length);
-        return await axios.post("http://localhost:3001/videogame", gameData);
+
+        // Realiza la solicitud para crear el juego
+        const response = await axios.post(
+          "http://localhost:3001/videogame",
+          gameData
+        );
+
+        // Verifica si la solicitud fue exitosa (código de respuesta 201)
+        if (response.status === 201) {
+          // Si fue exitosa, muestra el modal de éxito
+          setShowModal(true);
+          setModalType("success");
+          setModalMessage("The videogame was successfully created!");
+        } else {
+          // Si hubo un error en la solicitud, muestra el modal de error
+          setShowModal(true);
+          setModalType("error");
+          setModalMessage(
+            "An error occurred while creating the videogame. Please try again later."
+          );
+        }
+      } else {
+        // Si hay errores en el formulario, muestra el modal de error
+        setShowModal(true);
+        setModalType("error");
+        setModalMessage("Please complete all required fields.");
       }
     } catch (error) {
       console.error("Error creating videogame:", error);
-      alert(
+      // Si hubo un error inesperado, muestra el modal de error
+      setShowModal(true);
+      setModalType("error");
+      setModalMessage(
         "An error occurred while creating the videogame. Please try again later."
       );
     }
@@ -212,6 +279,16 @@ const Form = () => {
           </button>
         </div>
       </form>
+      {showModal && (
+        <div className={`modal ${modalType}`}>
+          <div className="modal-content">
+            <span className="close" onClick={handleCloseModal}>
+              &times;
+            </span>
+            <p>{modalMessage}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

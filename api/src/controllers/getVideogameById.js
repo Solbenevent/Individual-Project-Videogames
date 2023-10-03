@@ -9,7 +9,6 @@ require("dotenv").config();
 const API_KEY = process.env.API_KEY
  const { Videogame, Genre } = require("../db");
  const { json } = require("body-parser");
-// "https://api.rawg.io/api/games/{id}";
 
 const getVideogameById = async (req, res) => {
     const { idVideogame } = req.params;
@@ -17,39 +16,18 @@ const getVideogameById = async (req, res) => {
       let videogame;
   
        if (idVideogame && idVideogame.length === 36) {
-      //   // Si la longitud es 36, asumimos que es un UUID y lo buscamos en la base de datos local
-      //   // videogame = await Videogame.findByPk(idVideogame, {
-      //   //   include: Genre,
-      //   // });
-      //   const gameDB = await Videogame.findOne({ where: {id: idVideogame},
-      //        include: {model: Genre, attributes: ['name'],
-      //           through: {attributes: []}}});
-      //           let X = gameDB
-      //                         const information = {
-      //                             id: X.idVideogame,
-      //                             name: X.name,
-      //                             image: X.image,
-      //                             rating: X.rating,
-      //                             description: X.description,
-      //                             released: X.released,
-      //                             platforms: X.platforms,
-      //                             createdAt: X.createdAt,
-      //                             updateAt: X.updatedAt,
-      //                             genres: X.genres.map(p => p.name).join(', ')
-      //                         }
-      //                         console.log("db")
-      //                         console.log(information);
-      //                         return res.json(information)
-      const gameDB = await Videogame.findOne({
-        where: { id: idVideogame }, // Asegúrate de buscar por el campo correcto (idVideogame)
+      const gameDB = await Videogame.findByPk(idVideogame,{
         include: [
           {
-          model: Genre,
-          attributes: ['name'],
-         // through: { attributes: [] }
+            model: Genre,
+            as: "Genres",
+            attributes: ["name"],
+            through: {
+              attributes: [], 
+            }
           }
         ]
-      });
+      })
       if (gameDB) {
         const information = {
           id: gameDB.idVideogame, // Usa el campo correcto para el UUID
@@ -61,26 +39,21 @@ const getVideogameById = async (req, res) => {
           platforms: gameDB.platforms,
           createdAt: gameDB.createdAt,
           updatedAt: gameDB.updatedAt,
-          genres: gameDB.genres ? gameDB.genres.map((genre) => genre.name || genre).join(', ') : '', // Verificar si genres existe antes de mapearlo
-          
+         genres: gameDB.Genres?.map(genre => genre.name || genre).join(", ")
         };
 
         return res.json(information);
-      } else {
-        // De lo contrario, asumimos que es un juego de la API externa y lo buscamos en la API
-        const url = `https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`;
-        const response = await axios.get(url);
-        videogame = response.data;
-      }
+      } 
     }
+    // De lo contrario, asumimos que es un juego de la API externa y lo buscamos en la API
+    const url = `https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`;
+    const response = await axios.get(url);
+    videogame = response.data;
   
-    if (videogame) {
-        console.log(videogame);
-        console.log("ola")
-        const genres = videogame.genres ? videogame.genres.map((genre) => genre.name) : [];
-        console.log("controllerId");
-        console.log(genres);
-        res.status(200).json({
+    if (videogame && videogame.id) {
+    
+        const genres = videogame.genres ? videogame.genres.map((genre) => genre.name).join(", ") : [];
+      return  res.status(200).json({
           name: videogame.name,
           image: videogame.background_image,
           description: videogame.description_raw || videogame.description || "",
@@ -89,12 +62,10 @@ const getVideogameById = async (req, res) => {
           platforms: videogame.platforms ? videogame.platforms.map((platform) => platform.platform.name || platform.platform) : [],
           genres,
         });
-        console.log("luego del envio del json");
-        console.log(); 
 
-      } else {
+      } 
         res.status(404).send(`Videogame ${idVideogame} Not Found`);
-      }
+      
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error al obtener detalle del Videojuego" +  error });

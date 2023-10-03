@@ -1,5 +1,5 @@
 import axios, { all } from "axios";
-import { GET_GAMES, GET_DETAIL, GET_GENRES, DELETE_FILTERS, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_GENRE, FILTER_BY_CREATOR, SET_PAGE, CREATE_VIDEOGAME, ORDER_BY_API, SEARCH_GAME_BY_NAME, CLEAR_DETAIL, ORDER_RATING, ORDER_ALPHABETIC} from "./actionTypes";
+import { SET_ERROR_MESSAGE, GET_GAMES, GET_DETAIL, GET_GENRES, DELETE_FILTERS, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_GENRE, FILTER_BY_CREATOR, SET_PAGE, CREATE_VIDEOGAME, ORDER_BY_API, SEARCH_GAME_BY_NAME, CLEAR_DETAIL, ORDER_RATING, ORDER_ALPHABETIC} from "./actionTypes";
 
 export const getVideogames = () => {
    return  async (dispatch) => {
@@ -13,19 +13,57 @@ export const getVideogames = () => {
 
 }
 
+// export const searchGameByName = (name) => {
+//   return async (dispatch) => {
+//     try {
+//       const response = await axios.get(`http://localhost:3001/videogames/name?name=${name}`);
+//       if (response.status === 404) {
+//         return dispatch({
+//           type: SET_ERROR_MESSAGE,
+//           payload: response.data.message,
+//         });
+//       } else {
+//         return dispatch({
+//           type: SEARCH_GAME_BY_NAME,
+//           payload: response.data,
+//         });
+//       }
+//     } catch (error) {
+//       const errorMessage = error.response?.data?.message || 'No existen videojuegos con ese nombre';
+//       console.log(errorMessage);
+//       return dispatch({
+//         type: SET_ERROR_MESSAGE,
+//         payload: errorMessage
+//       })
+//     }    
+//   }}
 export const searchGameByName = (name) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`http://localhost:3001/videogames/name?name=${name}`);
-      return dispatch({
-        type: SEARCH_GAME_BY_NAME,
-        payload: response.data,
-      })
+      if (response.data.length === 0) {
+        return dispatch({
+          type: SET_ERROR_MESSAGE,
+          payload: 'Juego no encontrado',
+        });
+      } else {
+        return dispatch({
+          type: SEARCH_GAME_BY_NAME,
+          payload: response.data,
+        });
+      }
     } catch (error) {
-      console.log(error);
+      const errorMessage = error.response?.data?.message;
+      return dispatch({
+        type: SET_ERROR_MESSAGE,
+        payload: errorMessage,
+      });
     }
   }
 }
+
+  
+
 
 
 export const getVideogameDetail = (idVideogame) => {
@@ -89,6 +127,7 @@ export const deleteFilters = () => {
     type: DELETE_FILTERS,
   }
 }
+
 
 
  export const setPage = (page) => {

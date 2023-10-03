@@ -15,8 +15,8 @@ const getVideogames = async (req, res) => {
        apiGames = url1.data.results.concat(url2.data.results, url3.data.results, url4.data.results, url5.data.results);
 
        apiGames = apiGames.map(game => {
-                   const platforms = game.platforms?.map(platform => platform.platform.name);
-                   const genres = game.genres?.map(genre => genre.name); 
+                   const platforms = game.platforms?.map(platform => platform.platform.name).join(", ");
+                   const genres = game.genres?.map(genre => genre.name).join(", "); 
                    return {
                        id: game.id,
                        name: game.name,
@@ -29,19 +29,34 @@ const getVideogames = async (req, res) => {
                    }
                });
             
-               const dbGames = await Videogame.findAll({
+            const dbGames = await Videogame.findAll({
                 include: [
-                    {
-                        model: Genre,
-                        attributes: ['name'], // Selecciona solo el nombre del género
+                  {
+                    model: Genre,
+                    as: "Genres",
+                    attributes: ["name"],
+                    through: {
+                      attributes: [], 
                     }
-                ],
-            });
-    
-               const allGames = [...apiGames, ...dbGames];
+                  }
+                ]
+              })
+            const dbGamesWithGenres = dbGames.map((game) => ({
+                id: game.id,
+                name: game.name,
+                image: game.image,
+                genres: game.Genres?.map((genre) => genre.name || genre).join(", "), // Mapea solo el nombre del género
+                platforms: game.platforms,
+                rating: game.rating,
+                released: game.released,
+                created: true, // Marca estos juegos como creados en la base de datos
+              }));
+              
+              const allGames = [...apiGames, ...dbGamesWithGenres];
+              // const allGames = [...apiGames, ...dbGames];
                return res.status(200).json(allGames); 
     } catch (error) {
-        return res.status(500).json({ message: "Couldn't get data from API", error});
+        return res.status(500).json({ message: "Couldn't get data from API" + error});
     }
 }
 

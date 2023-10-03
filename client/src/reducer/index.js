@@ -1,4 +1,4 @@
-import { GET_GAMES, GET_DETAIL, GET_GENRES, DELETE_FILTERS, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_CREATOR, FILTER_BY_GENRE, CREATE_VIDEOGAME, ORDER_BY_API, SEARCH_GAME_BY_NAME, CLEAR_DETAIL, ORDER_RATING, ORDER_ALPHABETIC} from "../actions/actionTypes";
+import { GET_GAMES, GET_DETAIL, GET_GENRES, DELETE_FILTERS, ORDER_ASC_RATING, ORDER_DESC_RATING, FILTER_BY_CREATOR, FILTER_BY_GENRE, CREATE_VIDEOGAME, ORDER_BY_API, SEARCH_GAME_BY_NAME, CLEAR_DETAIL, ORDER_RATING, ORDER_ALPHABETIC, SET_ERROR_MESSAGE} from "../actions/actionTypes";
 import { mergeSort } from "./mergeAndQuickSort"; 
 
 const initialState ={
@@ -6,6 +6,7 @@ const initialState ={
    videogameDetail: [],
    genres: [],
    filteredVideogames: [],
+   errorMessage: ""
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -15,10 +16,17 @@ const rootReducer = (state = initialState, action) => {
             ...state, 
             videogames:action.payload,
     }
+    case SET_ERROR_MESSAGE: 
+    return {
+        ...state,
+        errorMessage: action.payload
+    }
+
     case SEARCH_GAME_BY_NAME:
         return {
             ...state,
             filteredVideogames: action.payload,   
+  
         }
     case GET_DETAIL:
         return {
