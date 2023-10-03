@@ -12,11 +12,7 @@ const Cards = ({ videogames }) => {
             id={data.id}
             name={data.name}
             image={data.image}
-            genres={
-              Array.isArray(data.genres)
-                ? data.genres.map((genre) => genre).join(" / ")
-                : data.genres
-            }
+            genres={data?.genres}
           />
         ))
       ) : (
