@@ -1,5 +1,6 @@
 import VideogameCard from "../VideogameCard/VideogameCard";
-import Loading from "../Loading/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import "../Cards/Cards.css";
 
 const Cards = ({ videogames }) => {
@@ -16,7 +17,14 @@ const Cards = ({ videogames }) => {
           />
         ))
       ) : (
-        <Loading />
+        <div className="spinner-container">
+          <FontAwesomeIcon
+            icon={faSpinner}
+            spin
+            size="2x"
+            style={{ color: "#4c007d" }}
+          />
+        </div>
       )}
     </div>
   );

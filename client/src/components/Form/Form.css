@@ -1,46 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Chakra+Petch:wght@300&family=Oswald:wght@600&family=Overpass+Mono:wght@300&family=Pacifico&display=swap');
+
+/* Estilos para el formulario y la imagen */
+.container-all-form {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  background: linear-gradient(to bottom, #cbc9c9, #a7a6a6, #afafaf);
+  min-height: 100vh; 
+}
+
 .form-container {
-    width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background: linear-gradient(to top, #bdbcbc, #a4a3a3, #7d7d7d);
-    border-radius: 5px;
-  }
-  
-  .form-title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .form-name {
-    font-weight: bold;
-  }
-  
-  .container-img-url,
-  .container-form-platforms,
-  .container-form-released,
-  .container-form-description,
-  .container-form-rating,
-  .container-form-genre {
-    margin-bottom: 15px;
-  }
-  
-  textarea {
-    width: 100%;
-    height: 100px;
-  }
-  
-  .btn-form {
-    background-color:#1e381f;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    justify-content: center;
-  }
-  
-  .btn-form:hover {
-    background-color: #2a4e2b;
-  }
-  
+  width: 80%; /* Ancho del formulario */
+  max-width: 600px; /* Ancho máximo del formulario */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Estilos para los elementos del formulario */
+.name-form-container,
+.container-img-url,
+.container-form-platforms,
+.container-form-released,
+.container-form-description,
+.container-form-rating,
+.container-form-genre,
+.container-form-btn {
+  margin-bottom: 20px;
+  margin-right: 20px;
+  justify-content: center;
+}
+
+.form-name,
+.img-url,
+.form-platforms,
+.form-released,
+.form-description,
+.form-rating,
+.form-genre {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  font-family: 'Overpass Mono', monospace;
+}
+
+/* Estilos para los campos de entrada de texto */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="date"],
+.form-container select,
+.form-container textarea {
+  width: 90%; /* Ancho completo del input/select/textarea */
+  padding: 10px; /* Espaciado interno */
+  margin-bottom: 15px; /* Espaciado inferior */
+  border: 1px solid #ccc; /* Borde gris */
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%; /* Ancho completo del input/select/textarea */
+}
+.error-name,
+.error-description,
+.error-rating {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Estilos para los botones */
+.btn-back-form,
+.btn-form {
+  background-color: #555454;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-form:hover{
+  background-color: #4c007d;
+}
+
+.label-genre {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'Overpass Mono', monospace;
+}
+
+/* Estilos para los checkboxes de géneros */
+.checkbox-genres {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.btn-back-form {
+ /* Estilos para el botón "Back" */
+
+  background-color: #c501e2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute; /* Posición absoluta para superponer en la esquina */
+  top: 10px; /* Distancia desde la parte superior */
+  left: 10px; /* Distancia desde la izquierda */
+}
+
+/* Estilos para la imagen */
+.image-container {
+  flex: 1; /* Ocupa el espacio disponible en el lado derecho */
+  padding: 20px;
+  text-align: center;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px; /* Ajusta la posición vertical según tus preferencias */
+  left: 20px; /* Ajusta la posición horizontal según tus preferencias */
+  z-index: 1; /* Asegura que la flecha esté por encima del contenido */
+  text-decoration: none;
+  color: #c501e2;
+}

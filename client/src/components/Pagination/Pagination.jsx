@@ -13,7 +13,7 @@ const Pagination = ({
   );
 
   return (
-    <div className="footer">
+    <div className="pagination-container">
       {pageNumbers.map((pageNumber) => (
         <button onClick={() => onPageChange(pageNumber)} className="btn-pages">
           {pageNumber}

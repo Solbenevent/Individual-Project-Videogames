@@ -61,7 +61,7 @@ html, body {
 
 .detail-name:hover {
   transform: scale(1.1); /* Escalar el título al 110% del tamaño original */
-  color: #61b25d;
+  /* color: #61b25d; */
   cursor: pointer;/* Cambiar el color del título al hacer hover */
 }
 
@@ -80,6 +80,28 @@ html, body {
   text-decoration: underline;
   padding: 0;
   font-size: inherit;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px; /* Ajusta la posición vertical según tus preferencias */
+  left: 20px; /* Ajusta la posición horizontal según tus preferencias */
+  z-index: 1; /* Asegura que la flecha esté por encima del contenido */
+  text-decoration: none;
+  color: #c501e2;
+}
+
+
+@keyframes beat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 

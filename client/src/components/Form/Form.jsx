@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getGenres } from "../../actions";
 import { Link, useNavigate } from "react-router-dom";
 import validations from "./validations";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import Image from "../imagenes/videogame.png";
 import "../Form/Form.css";
 
 const Form = () => {
@@ -34,7 +37,7 @@ const Form = () => {
 
   const [errors, setErrors] = useState({
     name: "",
-    rating: 0,
+    rating: "",
     description: "",
   });
 
@@ -81,49 +84,6 @@ const Form = () => {
       }
     });
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     if (Object.values(errors).every((error) => error === "")) {
-  //       const gameData = {
-  //         name: game.name,
-  //         image: game.image,
-  //         description: game.description,
-  //         platforms: game.platforms,
-  //         genres: game.genres,
-  //         rating: game.rating,
-  //         released: game.released,
-  //       };
-  //       console.log(gameData);
-  //       console.log(222);
-  //       // return await axios.post("http://localhost:3001/videogame", gameData);
-  //       const response = await axios.post(
-  //         "http://localhost:3001/videogame",
-  //         gameData
-  //       );
-  //       console.log(response);
-  //       if (response.status === 201) {
-  //         setModalMessage(response.data.message);
-  //         setModalType("success");
-  //         setShowModal(true);
-  //       }
-  //       // Si hubo un error en la solicitud, muestra el modal de error
-  //       setShowModal(true);
-  //       setModalType("error");
-  //       setModalMessage(
-  //         "An error occurred while creating the videogame. Please try again later."
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Error creating videogame:", error);
-  //     setModalMessage(
-  //       error.response?.data?.message || "¡Lo siento! Ocurrió un Error"
-  //     );
-  //     setModalType("error");
-  //     setShowModal(true);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -187,16 +147,22 @@ const Form = () => {
   ];
 
   return (
-    <div className="div-form">
-      <button className="btn-back" onClick={handleNavigate}>
-        Back
-      </button>
+    <div className="container-all-form">
+      <Link to="/home" className="back-button">
+        <FontAwesomeIcon
+          icon={faArrowCircleLeft}
+          beat
+          size="xl"
+          style={{ color: "#4c007d" }}
+        />
+      </Link>
+
       <form className="form-container" onSubmit={handleSubmit}>
-        <div className="title-container">
-          <h1 className="form-title">Hey! Create a new Videogame</h1>
+        <div className="title-form-container">
+          <h1 className="form-title">¡Hey! Create a new Videogame</h1>
         </div>
 
-        <div className="name-container">
+        <div className="name-form-container">
           <label className="form-name">Name:</label>
           <input
             type="text"
@@ -218,7 +184,7 @@ const Form = () => {
         </div>
 
         <div className="container-form-platforms">
-          <label>Platforms:</label>
+          <label className="form-platforms">Platforms:</label>
           <select
             name="platforms"
             value={game.platforms}
@@ -264,8 +230,9 @@ const Form = () => {
         <div className="container-form-genre">
           <label className="form-genre">Genres:</label>
           {genres.map((genre) => (
-            <label key={genre.id}>
+            <label key={genre.id} className="label-genre">
               <input
+                className="checkbox-genres"
                 type="checkbox"
                 value={genre}
                 name="genres"
@@ -292,6 +259,9 @@ const Form = () => {
           </div>
         </div>
       )}
+      <div className="image-container">
+        <img src={Image} alt="videogame" />
+      </div>
     </div>
   );
 };

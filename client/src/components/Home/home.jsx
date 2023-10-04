@@ -73,76 +73,86 @@ const Home = () => {
 
   return (
     <div className="container-home">
-      <div>
+      <div className="container-searchbar">
         <SearchBar setCurrentPage={setCurrentPage} />
 
-        <div>
-          <label>Filter by </label>
-          <select
-            name="Origin"
-            onChange={filterHandler}
-            defaultValue="Filter By Origin"
-            className="select-origin"
-          >
-            <option value="ALL">All</option>
-            <option value="API">Api</option>
-            <option value="DATABASE">DataBase</option>
-          </select>
+        <div className="container-filter-row">
+          <div className="contianer-filter">
+            <label className="label-origin">Filter by </label>
+            <select
+              name="Origin"
+              onChange={filterHandler}
+              defaultValue="Filter By Origin"
+              className="select-origin"
+            >
+              <option value="ALL" className="options">
+                All
+              </option>
+              <option value="API" className="options">
+                Api
+              </option>
+              <option value="DATABASE" className="options">
+                DataBase
+              </option>
+            </select>
+          </div>
+
+          <div className="container-filter">
+            <label className="label-genres">Filter By</label>
+            <select
+              name="Genres"
+              onChange={filterHandler}
+              defaultValue="Filter By Diets"
+              className="select-diets"
+            >
+              <option value="ALL">All</option>
+              {genres?.map((genre, index) => {
+                return (
+                  <option value={genre} key={index} className="options">
+                    {genre}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+          <div className="container-filter">
+            <label className="label-alfabetic">Order by </label>
+            <select
+              name="Alphabetic"
+              onChange={orderHandler}
+              defaultValue="Alphabetic Order"
+              className="select-order"
+            >
+              <option value="ALL">All</option>
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+            </select>
+          </div>
+
+          <div className="contianer-filter">
+            <label className="label-rating">Order by </label>
+            <select
+              name="Rating"
+              onChange={orderHandler}
+              defaultValue="Rating Order"
+              className="select-rating"
+            >
+              <option value="ALL">All</option>
+              <option value="Descendente">Lowest Rating</option>
+              <option value="Ascendente">Highest Rating</option>
+            </select>
+          </div>
+
+          <div className="container-reset">
+            <button onClick={resetAll} className="btn-reset">
+              Reset
+            </button>
+          </div>
         </div>
 
-        <div>
-          <select
-            name="Genres"
-            onChange={filterHandler}
-            defaultValue="Filter By Diets"
-            className="select-diets"
-          >
-            <label>Filter By</label>
-            <option value="ALL">All</option>
-            {genres?.map((genre, index) => {
-              return (
-                <option value={genre} key={index}>
-                  {genre}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-
-        <div>
-          <label>Order by </label>
-          <select
-            name="Alphabetic"
-            onChange={orderHandler}
-            defaultValue="Alphabetic Order"
-            className="select-order"
-          >
-            <option value="ALL">All</option>
-            <option value="A-Z">A-Z</option>
-            <option value="Z-A">Z-A</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Order by </label>
-          <select
-            name="Rating"
-            onChange={orderHandler}
-            defaultValue="HealthScore Order"
-            className="select-score"
-          >
-            <option value="ALL">All</option>
-            <option value="Descendente">Lowest Score</option>
-            <option value="Ascendente">Highest Score</option>
-          </select>
-        </div>
-
-        <div>
-          <button onClick={resetAll}>Reset</button>
-        </div>
-
-        <div className="container-name">
-          <h1 className="title">ALL VIDEOGAMES HERE!</h1>
+        <div className="container-titulo">
+          {/* <h1 className="title">¡ALL VIDEOGAMES HERE!</h1> */}
         </div>
 
         <div>

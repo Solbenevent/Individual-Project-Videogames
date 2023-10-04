@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Chakra+Petch:wght@300&family=Oswald:wght@600&family=Overpass+Mono:wght@300&family=Pacifico&display=swap');
+
+
 .container-home {
     display: flex;
     align-items: center;
@@ -5,16 +8,104 @@
     background: linear-gradient(to bottom, #cbc9c9, #a7a6a6, #afafaf)
   }
 
-  .title {
+  /* Home.css */
+
+  .container-filter-row {
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
-    color: yellow
-    
+    flex-wrap: wrap; /* Ajustar automáticamente si no caben en una fila */
+    gap: 20px; 
+    margin-top: 15px;/* Espacio entre los elementos */
   }
-  .container-name{
-   /* background-color: #1e381f; */
-    padding: 10px;
-    background: linear-gradient(to bottom, #2a4e2b, #244325, #1e381f)
+  
 
+/* Estilos para los labels */
+.label-origin,
+.label-genres,
+.label-alfabetic,
+.label-rating {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4c007d;
+  margin-right: 10px;
+  font-family: 'Overpass Mono', monospace;
+}
+
+/* Estilos para los selects */
+.select-origin,
+.select-diets,
+.select-order,
+.select-rating {
+  width: 140px;
+  padding: 5px;
+  border: 1.5px solid #4c007d;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333; /* Color gris oscuro */
+  /* font-family: 'Overpass Mono', monospace; */
+}
+
+/* Estilos para las opciones de los selects */
+.options {
+  font-size: 14px;
+  color: #333; /* Color gris oscuro */
+}
+
+/* Estilos para el botón de reset */
+.btn-reset {
+  background-color: #4c007d;
+  color: white; /* Texto blanco */
+  border: none;
+  border-radius: 15px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Overpass Mono', monospace;
+}
+
+.btn-reset:hover {
+  background-color: #333; /* Cambio de color al hacer hover */
+}
+
+
+  /* Estilos para el contenedor del título */
+.container-titulo {
+  text-align: center;
+}
+
+/* Estilos para el título */
+.title {
+  opacity: 0; /* Inicialmente, el texto está oculto */
+  transform: translateY(20px); /* Mover el texto hacia abajo inicialmente */
+  animation: fade-in 2s ease-in-out forwards, slide-up 1s ease-in-out forwards;
+  justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #4c007d;
+    font-family: 'Overpass Mono', monospace;
+    font-weight: bolder;
+    font-size: 30px
+}
+
+/* Animación para la aparición gradual del título */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Animación para el desplazamiento hacia arriba */
+@keyframes slide-up {
+  0% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

@@ -2,6 +2,14 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap; /* Añade esta propiedad */
-
   }
+
+  /* Estilos CSS para centrar el spinner */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Altura deseada para el contenedor de tarjetas */
+}
+
   

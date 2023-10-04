@@ -1,20 +1,23 @@
-.footer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    size: 80px;
-    margin-bottom: 8px;
+/* Pagination.css */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
-.btn-pages{
-    margin-right: 10px;
-    background-color: yellow;
-    font-weight: bold;
+.btn-pages {
+  background-color: #4c007d;
+  color: white; /* Texto blanco */
+  border: none;
+  border-radius: 50%; /* Botones redondeados */
+  padding: 8px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn-pages:hover {
-  cursor: pointer;
-  box-shadow: 4px 4px 10px 4px rgba(255, 255, 52, 0.907);
-
-
+  background-color: #333; /* Cambio de color al hacer hover */
 }
