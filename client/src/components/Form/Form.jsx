@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenres } from "../../actions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import validations from "./validations";
 import "../Form/Form.css";
 
@@ -10,6 +10,12 @@ const Form = () => {
   //react-redux
   const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/home");
+  };
 
   //hooks
   useEffect(() => {
@@ -132,9 +138,6 @@ const Form = () => {
           rating: game.rating,
           released: game.released,
         };
-        console.log(gameData);
-        console.log(2);
-        console.log(gameData.length);
 
         // Realiza la solicitud para crear el juego
         const response = await axios.post(
@@ -184,10 +187,10 @@ const Form = () => {
   ];
 
   return (
-    <div>
-      <Link to="/home">
-        <button className="btn-back">Back</button>
-      </Link>
+    <div className="div-form">
+      <button className="btn-back" onClick={handleNavigate}>
+        Back
+      </button>
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="title-container">
           <h1 className="form-title">Hey! Create a new Videogame</h1>

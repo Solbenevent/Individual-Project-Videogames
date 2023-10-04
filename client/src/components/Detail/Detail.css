@@ -1,92 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Chakra+Petch:wght@300&family=Oswald:wght@600&display=swap');
-
-.container-detail {
-  background: linear-gradient(to top, #787676, #5c5c5c, #494949);
-  min-height: 100vh;
-  justify-content: center;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Chakra+Petch:wght@300&family=Oswald:wght@600&family=Overpass+Mono:wght@300&family=Pacifico&display=swap');
+html, body {
+  background: linear-gradient(to bottom, #cbc9c9, #a7a6a6, #afafaf);
+  
 }
-
-.container-detail-name {
-  justify-content: center;
-  align-items: center;
+/* Estilos para el contenedor principal */
+.detail-container {
   display: flex;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 20px;
+  padding: 20px;
+  transition: height 0.3s; 
+  margin-top: 70px; /* Agregar transición de altura para una animación suave */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo negro transparente */
+  color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5)
+}
+.p-genres,
+.detail-rating,
+.detail-platforms,
+.detail-description,
+.detail-released{
+  font-family: 'Overpass Mono', monospace;
+}
+.detail-container.expanded {
+  height: auto; /* Establecer altura automática cuando está expandido */
+  /* Mantener el mismo fondo negro transparente */
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
+.detail-image {
+  flex: 1; /* Hace que el contenedor de la imagen ocupe toda la mitad izquierda */
+  margin-right: 15px; /* Elimina cualquier margen derecho que pueda haber */
+  display: flex; /* Permite centrar la imagen verticalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+  width: 100%; /* Establece un ancho fijo para el contenedor de la imagen */
+  height: 100%; /* Establece una altura fija para el contenedor de la imagen */
+  overflow: hidden; 
+}
+
+.detail-image img {
+  width: 100%; /* Establece el ancho de la imagen al 100% del contenedor */
+  height: 100%; /* Establece la altura de la imagen al 100% del contenedor */
+  object-fit: cover; /* Ajusta la imagen para cubrir completamente el contenedor sin deformarla */
+  border-radius: 9px;
+}
+
+.detail-title {
+  align-items: center;
+}
 .detail-name{
-  font-family: "Assistant", sans-serif;
-  color: yellow;
-  font-weight: bold;
-
-}
-
-.container-description-detail {
-  border: 1.5px solid yellow;
-}
-
-.detail-description {
-  font-family: "Assistant", sans-serif;
-  
-}
-
-.container-genre-detail {
-  justify-content: center;
-  align-items: center;
   display: flex;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  margin-left: 100px;
 }
 
-.detail-genre {
-  font-family: "Assistant", sans-serif;
+.detail-name:hover {
+  transform: scale(1.1); /* Escalar el título al 110% del tamaño original */
+  color: #61b25d;
+  cursor: pointer;/* Cambiar el color del título al hacer hover */
 }
 
-.detail-rating {
-  font-family: "Assistant", sans-serif;
+.detail-info {
+  flex: 1;
+  align-items: center; /* Centrar verticalmente los elementos */
+ /* Hace que la información ocupe la mitad derecha del contenedor */
 }
 
-.container-img-detail {
-  width: 60%;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-}
-.container-rating-detail {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-.img-detail {
-  max-width: 50%;
-  height: auto;
-  border: 2px solid black;
-  border-radius: 50%;
-  margin-left: 64%;
-  margin-top: 5px;
-  padding: 0px
+.detail-description button {
+  font-family: 'Overpass Mono', monospace;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: inherit;
 }
 
-.container-released{
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  margin-top: 5px;
-}
 
-.container-platform-detail {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
+/* Añade más estilos según tus preferencias */
 
-.container-detail-name,
-.container-released,
-.container-genre-detail,
-.container-rating-detail,
-.container-platform-detail,
-.container-description-detail {
-  
- 
-margin-top: 5px; /* Ajusta el margen superior */
-margin-bottom: 5px; /* Ajusta el margen inferior */
-}
+
 
 

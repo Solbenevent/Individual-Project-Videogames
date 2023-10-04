@@ -1,78 +1,81 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { getVideogameDetail, clearDetail } from "../../actions";
 import Loading from "../Loading/Loading";
-//import "../Detail/Detail.css";
+import "../Detail/Detail.css";
 
 const Detail = () => {
   const { idVideogame } = useParams();
   const dispatch = useDispatch();
   const videogame = useSelector((store) => store.videogameDetail);
-  console.log(videogame);
+
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     dispatch(getVideogameDetail(idVideogame));
     dispatch(clearDetail());
   }, [dispatch, idVideogame]);
 
+  const toggleDescription = () => {
+    setShowMore(!showMore);
+  };
+
+  const containerClasses = `detail-container ${showMore ? "expanded" : ""}`;
+
   return (
-    // <div className="container-detail">
-    //   <div>
-    //     <Link to="/home">
-    //       <button>Back</button>
-    //     </Link>
-    //   </div>
-    //   <div className="container-detail-name">
-    //     <h1 className="detail-name">{videogame.name}</h1>
-    //   </div>
-    //   <div className="container-img-detail">
-    //     <img
-    //       className="img-detail"
-    //       src={videogame.image}
-    //       alt={videogame.name}
-    //     />
-    //   </div>
-    //   <div className="container-released">
-    //     <h3 className="detail-released">{videogame.released}</h3>
-    //   </div>
-    //   <div className="container-genre-detail">
-    //     <h3 className="detail-genre">{videogame.genres}</h3>
-    //   </div>
-    //   <div className="container-rating-detail">
-    //     <h3 className="rating-detail">{videogame.rating}</h3>
-    //   </div>
-    //   <div className="container-platform-detail">
-    //     <h3 className="platform-detail">{videogame.platforms}</h3>
-    //   </div>
-    //   <div className="container-description-detail">
-    //     <h4 className="description-detail">{videogame.description}</h4>
-    //   </div>
-    // </div>
-    <div className="detail-container">
+    <div className={containerClasses}>
       <div className="detail-image">
         {videogame.image === null || !videogame.image ? (
           <Loading image={"noimage"} />
         ) : (
           <img src={videogame.image} alt={videogame.name} />
         )}
+      </div>
+      <div className="detail-info">
         <div className="detail-title">
-          <h1>{videogame.name}</h1>
-          <h5>({videogame.released})</h5>
+          <h1 className="detail-name">{videogame.name}</h1>
+          <h5 className="detail-released">({videogame.released})</h5>
         </div>
-      </div>
-      <div className="detail-description">
-        <h2>About this game:</h2>
-        <p>{videogame.description}</p>
-      </div>
-      <div className="detail-genres">
-        <p>Genres: {videogame?.genres}</p>
-      </div>
-      <div className="detail-rating">
-        <p>Rating: {videogame.rating}</p>
-      </div>
-      <div className="detail-platforms">
-        <p>Platforms: {videogame.platforms}</p>
+        <div className="detail-genres">
+          <p className="p-genres">
+            <strong>Genres:</strong> {videogame?.genres}
+          </p>
+        </div>
+        <div className="detail-rating">
+          <p>
+            <strong>Rating:</strong> {videogame.rating}
+          </p>
+        </div>
+        <div className="detail-platforms">
+          <p>
+            <strong>Platforms:</strong> {videogame.platforms}
+          </p>
+        </div>
+        <div className="detail-description">
+          {/* <h2>About this game:</h2>
+          <p>{videogame.description}</p> */}
+          {videogame.description ? (
+            <div>
+              <h2>About this game:</h2>
+              {showMore ? (
+                <div>
+                  <p>{videogame?.description}</p>
+                  <button onClick={toggleDescription}>Ver menos</button>
+                </div>
+              ) : (
+                <div>
+                  <p className="detail-description">
+                    {videogame?.description.slice(0, 200)}...
+                  </p>
+                  <button onClick={toggleDescription}>Ver más</button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p>Descripción no disponible</p>
+          )}
+        </div>
       </div>
     </div>
   );
