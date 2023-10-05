@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap; /* Añade esta propiedad */
+    margin-bottom: 30px;
   }
 
   /* Estilos CSS para centrar el spinner */

@@ -1,22 +1,24 @@
 //import image from "../imagenes/videogame.png";
-import image from "../../imagenes/videogame.png";
-import { Link } from "react-router-dom";
-import incon from "../../imagenes/arrow.png";
+import { useNavigate } from "react-router-dom";
 import "../Landing/Landing.css";
-import welcome from "../../imagenes/welcome.png";
+
 const Landing = () => {
+  const navigate = useNavigate();
+  const handleGetStartedClick = () => {
+    navigate("/home");
+  };
+
   return (
-    <div className="container">
-      <div>
-        <img src={welcome} alt="welcome" className="welcome" />
-      </div>
-      <div>{/* <img src = {image} alt="img" className="image"/> */}</div>
-      <div>
-        <Link to={"/home"}>
-          <button className="button">
-            <img src={incon} alt="arrow" className="icon" />
-          </button>
-        </Link>
+    <div className="bg-image">
+      <div className="container">
+        <div className="animated-text">
+          <h1 className="title-landing">
+            Discover a world of new and exciting games!
+          </h1>
+          <p className="get-started" onClick={handleGetStartedClick}>
+            Get Started
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { searchGameByName, getVideogames } from "../../actions";
 import logo from "../imagenes/skulls.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faHouse } from "@fortawesome/free-solid-svg-icons";
 import "../SearchBar/SearchBar.css";
 
 const SearchBar = ({ setCurrentPage }) => {
@@ -19,7 +19,6 @@ const SearchBar = ({ setCurrentPage }) => {
   const searchHandler = () => {
     if (input) {
       dispatch(searchGameByName(input));
-      setCurrentPage(1);
     }
     dispatch(getVideogames());
     if (errorMessage) {
@@ -44,15 +43,17 @@ const SearchBar = ({ setCurrentPage }) => {
     navigate("/create");
   };
 
+  const handleHomeClick = () => {
+    navigate("/home");
+  };
+
   const closeModal = () => {
     setShowModal(false);
   };
 
   return (
     <div className="search-container">
-      <div className="logo">
-        <img src={logo} alt="logo" className="logo-search" />
-      </div>
+      <div className="logo"></div>
       <div className="input-container">
         <div
           className={`search-icon ${isSearchVisible ? "hidden" : ""}`}
@@ -61,7 +62,7 @@ const SearchBar = ({ setCurrentPage }) => {
           <FontAwesomeIcon
             icon={faSearch}
             size="2xl"
-            style={{ color: "#4c007d" }}
+            style={{ color: "white" }}
           />
         </div>
         {isSearchVisible && (
@@ -95,6 +96,20 @@ const SearchBar = ({ setCurrentPage }) => {
         <button className="btn-create" onClick={handleCreateClick}>
           Create
         </button>
+      </div>
+      <div className="container-about">
+        <Link to="/about" className="link-about">
+          About
+        </Link>
+      </div>
+
+      <div className="icon-home">
+        <FontAwesomeIcon
+          icon={faHouse}
+          size="2xl"
+          style={{ color: "white" }}
+          onClick={handleHomeClick}
+        />
       </div>
     </div>
   );

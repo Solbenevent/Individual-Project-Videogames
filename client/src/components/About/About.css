@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+
+
+.container-about {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 25px;
+    margin-right: 10%;
+  }
+  
+  .title-about {
+    width: 90%;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 80px;
+    margin-right: 0;
+    font-weight: bold;
+    color: #4c007d;
+    transition: all 2s ease;
+    animation: in-and-bounce 2s ease;
+  
+  }
+
+  .icon-about{
+    margin-left: 10px;
+  }
+
+  @keyframes in-and-bounce {
+    0% {
+      transform: scale(0.1) translateX(-100px);
+    }
+  
+    50% {
+      transform: scale(1) translateX(0);
+    }
+  
+    100% {
+      transform: scale(1) translateX(0);
+    }
+  
+    /* Pausa la animación de entrada */
+    50% {
+      animation-play-state: paused;
+    }
+  
+    /* Reanuda la animación de entrada y agrega el efecto de rebote */
+    60% {
+      animation-play-state: running;
+      transform: scale(1) translateX(10px);
+    }
+  
+    100% {
+      transform: scale(1) translateX(0);
+    }
+  }
+
+  
+  .p-content {
+    width: 90%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin-right: 70px;
+    margin-left: 0;
+
+  }
+  
+  
+  
+  .image-about {
+    width: 25%;
+    height: 25%;
+    margin-left: 10px;
+    border-radius: 50px;
+  }
+
+  
+  .container-about .title-about,
+  .container-about .p-content {
+    flex-grow: 1;
+  }
+  
+  .container-about .image-about {
+    flex-grow: -1;
+  }
+  
+  
+  
+  

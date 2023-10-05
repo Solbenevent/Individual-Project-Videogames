@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Chakra+Petch:wght@300&family=Oswald:wght@600&family=Overpass+Mono:wght@300&family=Pacifico&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 
 .container-home {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #cbc9c9, #a7a6a6, #afafaf)
+    background: white;
   }
 
   /* Home.css */
@@ -26,10 +26,9 @@
 .label-alfabetic,
 .label-rating {
   font-size: 16px;
-  font-weight: bold;
   color: #4c007d;
   margin-right: 10px;
-  font-family: 'Overpass Mono', monospace;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Estilos para los selects */
@@ -43,7 +42,7 @@
   border-radius: 5px;
   font-size: 14px;
   color: #333; /* Color gris oscuro */
-  /* font-family: 'Overpass Mono', monospace; */
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Estilos para las opciones de los selects */
@@ -60,10 +59,9 @@
   border-radius: 15px;
   padding: 8px 18px;
   font-size: 14px;
-  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-family: 'Overpass Mono', monospace;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-reset:hover {
@@ -89,6 +87,28 @@
     font-weight: bolder;
     font-size: 30px
 }
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  padding: 5px 0;
+}
+
+.contenedor-principal-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contenedor-copyright {
+  font-size: 15px;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+}
+
 
 /* Animación para la aparición gradual del título */
 @keyframes fade-in {

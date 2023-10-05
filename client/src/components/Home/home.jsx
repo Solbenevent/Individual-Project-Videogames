@@ -74,7 +74,7 @@ const Home = () => {
   return (
     <div className="container-home">
       <div className="container-searchbar">
-        <SearchBar setCurrentPage={setCurrentPage} />
+        {/* <SearchBar setCurrentPage={setCurrentPage} /> */}
 
         <div className="container-filter-row">
           <div className="contianer-filter">
@@ -171,6 +171,15 @@ const Home = () => {
           }
         />
       </div>
+
+      <footer className="footer-home">
+        <div class="contenedor-principal-footer">
+          <div class="contenedor-copyright">
+            <p>Copyright © 2023</p>
+          </div>
+          <div class="contenedor-links"></div>
+        </div>
+      </footer>
     </div>
   );
 };
