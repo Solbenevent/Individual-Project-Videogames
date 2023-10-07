@@ -101,10 +101,10 @@ export const filterByGenre = (genre) => {
   }
 };
 
-export const orderByCreator = (origin) => {
+export const orderByCreator = (Origin) => {
   return {
     type: FILTER_BY_CREATOR,
-    payload: origin,
+    payload: Origin,
   }
 };
 

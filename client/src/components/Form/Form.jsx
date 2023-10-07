@@ -170,7 +170,7 @@ const Form = () => {
             value={game.name}
             onChange={handleInputChange}
           />
-          <p className="error-name">{errors.name}</p>
+          <span className="error-form">{errors.name}</span>
         </div>
 
         <div className="container-img-url">
@@ -213,7 +213,7 @@ const Form = () => {
             value={game.description}
             onChange={handleInputChange}
           />
-          <p className="error-description">{errors.description}</p>
+          <span className="error-form">{errors.description}</span>
         </div>
 
         <div className="container-form-rating">
@@ -224,7 +224,7 @@ const Form = () => {
             value={game.rating}
             onChange={handleInputChange}
           />
-          <p className="error-rating">{errors.rating}</p>
+          <span className="error-form">{errors.rating}</span>
         </div>
 
         <div className="container-form-genre">
@@ -250,8 +250,8 @@ const Form = () => {
         </div>
       </form>
       {showModal && (
-        <div className={`modal ${modalType}`}>
-          <div className="modal-content">
+        <div className={`form-modal ${modalType}`}>
+          <div className="form-modal-content">
             <span className="close" onClick={handleCloseModal}>
               &times;
             </span>

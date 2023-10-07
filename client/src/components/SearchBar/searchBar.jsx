@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { searchGameByName, getVideogames } from "../../actions";
-import logo from "../imagenes/skulls.png";
+import logo from "../imagenes/direccion.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faHouse } from "@fortawesome/free-solid-svg-icons";
 import "../SearchBar/SearchBar.css";
@@ -22,6 +22,7 @@ const SearchBar = ({ setCurrentPage }) => {
     }
     dispatch(getVideogames());
     if (errorMessage) {
+      console.log(errorMessage);
       setShowModal(true);
     }
   };
@@ -53,7 +54,11 @@ const SearchBar = ({ setCurrentPage }) => {
 
   return (
     <div className="search-container">
-      <div className="logo"></div>
+      <div className="logo">
+        <Link to="/">
+          <img src={logo} className="logo-principal" />
+        </Link>
+      </div>
       <div className="input-container">
         <div
           className={`search-icon ${isSearchVisible ? "hidden" : ""}`}
@@ -81,10 +86,11 @@ const SearchBar = ({ setCurrentPage }) => {
             </button>
           </>
         )}
+
         {showModal && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={closeModal}>
+          <div className="custom-modal">
+            <div className="custom-modal-content">
+              <span className="custom-modal-close" onClick={closeModal}>
                 &times;
               </span>
               <p>{errorMessage}</p>

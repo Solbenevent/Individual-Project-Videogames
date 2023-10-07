@@ -10,19 +10,17 @@ import {
   getVideogames,
   deleteFilters,
 } from "../../actions";
-//import Filter from "../FilterandOrder/Filter";
 import Pagination from "../Pagination/Pagination";
-import SearchBar from "../SearchBar/searchBar";
 import "../Home/Home.css";
 
 const Home = () => {
   const dispatch = useDispatch();
 
-  const videogames = useSelector((state) => state.videogames);
+  const videogames = useSelector((state) => state.videogames); // array original de videojuegos
   const genres = useSelector((state) => state.genres);
-  const filteredVideogames = useSelector((state) => state.filteredVideogames);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15;
+  const filteredVideogames = useSelector((state) => state.filteredVideogames); // array de videojuegos pero con filtros y ordenamientos aplicados
+  const [currentPage, setCurrentPage] = useState(1); // para controlar el paginado
+  const itemsPerPage = 15; // juegos por página
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -32,24 +30,37 @@ const Home = () => {
   const indexOfFirstGame = indexOfLastGame - itemsPerPage;
   const currentVideogame =
     videogames?.length > 0 &&
-    videogames.slice(indexOfFirstGame, indexOfLastGame);
+    videogames.slice(indexOfFirstGame, indexOfLastGame); // lógica para manejar el paginado
 
   useEffect(() => {
-    dispatch(getGenres());
+    dispatch(getGenres()); // se monta el componente y se renderizan los géneros en el select.
   }, [dispatch]);
+
+  // const filterHandler = (e) => {
+  //   const { name, value } = e.target;
+  //   if (name === "Genres") {
+  //     dispatch(filterByGenre(value)); // Actualiza el filtro por género
+  //     setCurrentPage(1);
+  //   }
+  //   dispatch(orderByCreator(value)); // Actualiza el filtro por creador
+  //   setCurrentPage(1);
+  //   // lógica para manejar filtro por origen y por género
+  //   if (value === "ALL") {
+  //     dispatch(getVideogames());
+  //   }
+  // };
 
   const filterHandler = (e) => {
     const { name, value } = e.target;
-    if (name === "Genres" || name === "Origin") {
-      dispatch(filterByGenre(value)); // Actualiza el filtro por género
-      setCurrentPage(1);
-    } else {
-      dispatch(orderByCreator(value)); // Actualiza el filtro por creador
+    if (name === "Genres") {
+      dispatch(filterByGenre(value));
       setCurrentPage(1);
     }
-    if (value === "ALL") {
-      dispatch(getVideogames());
+    if (name === "Origin") {
+      dispatch(orderByCreator(value));
+      setCurrentPage(1);
     }
+    dispatch(getVideogames());
   };
 
   const orderHandler = (e) => {
@@ -59,7 +70,7 @@ const Home = () => {
     } else if (name === "Rating") {
       dispatch(orderByRating(value));
     }
-    dispatch(getVideogames());
+    dispatch(getVideogames()); // lógica para manejar ordenamiento por orden alfabético y por rating
   };
 
   const resetAll = () => {
@@ -69,8 +80,9 @@ const Home = () => {
       selectElements[i].selectedIndex = 0;
     }
     dispatch(getVideogames());
-  };
+  }; // para resetear los filtros y ordenamientos
 
+  //! RENDER
   return (
     <div className="container-home">
       <div className="container-searchbar">
@@ -85,13 +97,13 @@ const Home = () => {
               defaultValue="Filter By Origin"
               className="select-origin"
             >
-              <option value="ALL" className="options">
+              <option value="All" className="options">
                 All
               </option>
-              <option value="API" className="options">
+              <option value="Api" className="options">
                 Api
               </option>
-              <option value="DATABASE" className="options">
+              <option value="Database" className="options">
                 DataBase
               </option>
             </select>
@@ -102,10 +114,10 @@ const Home = () => {
             <select
               name="Genres"
               onChange={filterHandler}
-              defaultValue="Filter By Diets"
+              defaultValue="All"
               className="select-diets"
             >
-              <option value="ALL">All</option>
+              <option value="All">All</option>
               {genres?.map((genre, index) => {
                 return (
                   <option value={genre} key={index} className="options">
