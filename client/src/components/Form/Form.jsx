@@ -14,7 +14,7 @@ const Form = () => {
   const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   //hooks
   useEffect(() => {
@@ -50,10 +50,14 @@ const Form = () => {
   const handleInputChange = (e) => {
     const property = e.target.name;
     let value = e.target.value;
-    property === "rating"
-      ? (value = parseFloat(value))
-      : property === "platforms";
 
+    if (property === "rating") {
+      value = parseFloat(value);
+    }
+    if (property === "platforms") {
+      // Si la propiedad es 'platforms', convierte el valor en un array con un solo elemento
+      value = [value];
+    }
     const updatedGame = { ...game, [property]: value };
     setGame(updatedGame);
     validations(updatedGame, errors, setErrors);
