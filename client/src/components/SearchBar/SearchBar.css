@@ -128,17 +128,16 @@ width: 65%
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    padding: 8px 15px; /* Ajusta el padding según tus necesidades */
+    padding: 8px 15px; 
     border-radius: 15px;
     margin-left: 30px; 
-    margin-right: 35px;/* Ajusta el margen según tus necesidades */
-    transition: background-color 0.3s, transform 0.3s; /* Transición de color y escala */ /* Transición de color y escala */
-    font-family: 'Montserrat', sans-serif;
+    margin-right: 35px;
+    transition: background-color 0.3s, transform 0.3s; /* Transición de color y escala */ 
   }
   
 
 .btn-create:hover {
-  background-color: #5b5a5a; /* Cambio de color al hacer hover */
+  background-color: #5b5a5a; 
   transform: scale(1.1); /* Escala el botón al hacer hover */
   color: white;
   border: none;

@@ -16,10 +16,6 @@ const Form = () => {
 
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate("/home");
-  };
-
   //hooks
   useEffect(() => {
     dispatch(getGenres());
@@ -54,13 +50,9 @@ const Form = () => {
   const handleInputChange = (e) => {
     const property = e.target.name;
     let value = e.target.value;
-
-    if (property === "rating") {
-      value = parseFloat(value);
-    } else if (property === "platforms") {
-      // Si la propiedad es 'platforms', convierte el valor en un array con un solo elemento
-      value = [value];
-    }
+    property === "rating"
+      ? (value = parseFloat(value))
+      : property === "platforms";
 
     const updatedGame = { ...game, [property]: value };
     setGame(updatedGame);
