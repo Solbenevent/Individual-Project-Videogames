@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
-const PORT = 3001;
 const { conn } = require("./db.js");
 const getGenres = require("./controllers/getGenres.js");
 
@@ -41,7 +40,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 //   await conn.sync({ force: true });
 // });
 conn.sync( { force: false }).then(async () => {
-  server.listen(3001, () => {
+  server.listen(process.env.PORT || 3001, () => {
     console.log("Listening on port 3001")
   })
 })
